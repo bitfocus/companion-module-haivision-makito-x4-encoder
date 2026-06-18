@@ -16,20 +16,17 @@ ready-made presets ship for all of the above.
 
 Fix the known rough edges flagged in `CLAUDE.md`. These are bugs, not features.
 
-- [ ] **Encoder state mapping mismatch.** Feedbacks (`encoder_status`) and
-      `encoder_toggle` compare `state` against strings (`'running'`/`'stopped'`/
-      `'active'`/`1`), but the device returns numeric states
-      (`0/3/5/7/8/128`). Normalize on the numeric mapping already in
-      `processEncoderStatus()` so feedbacks and toggle actually work.
-- [ ] **Broken preset variable references.** Several presets in `src/presets.js`
-      reference variables that don't exist (`device_name`, `device_model`,
-      `encoder_state`, `encoder_bitrate`, `encoder_resolution`) and hardcode the
-      `$(makitox4:...)` connection prefix. Point them at real variable ids
-      (e.g. `encoder0_state`) and use a label-agnostic reference.
-- [ ] **Write real docs.** Replace placeholder `companion/HELP.md` (shown to users
-      in Companion) and `README.md` with setup, config-field, and feature docs.
-- [ ] **`set_stream_destination` is a no-op** — it only logs a warning. Either
-      implement it against `/apis/streams` or remove it to avoid confusing users.
+- [x] **Encoder state mapping mismatch.** Feedbacks (`encoder_status`) and
+      `encoder_toggle` now use the numeric state mapping (`0/3/5/7/8/128`) from
+      `processEncoderStatus()`; resolution/framerate/codec match feedbacks read
+      the correct fields (codec compares numeric `codecAlgorithm`).
+- [x] **Broken preset variable references.** Presets now reference real variable
+      ids (e.g. `encoder0_state`) via the connection's own label (`self.label`)
+      instead of the non-existent `$(makitox4:...)` tokens.
+- [x] **Write real docs.** `companion/HELP.md` and `README.md` now document setup,
+      config fields, and features.
+- [x] **`set_stream_destination` no-op removed.** Stream destinations are set via
+      the `Create Stream` / `Edit Stream` actions.
 
 ## Milestone 2 — Connection robustness (v1.1.0, minor)
 

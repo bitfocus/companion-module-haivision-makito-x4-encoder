@@ -250,7 +250,7 @@ module.exports = function (self) {
             category: 'Encoder Thumbnails',
             name: `Encoder ${i + 1} Thumbnail`,
             style: {
-                text: `ENC ${i + 1}\\n$(makitox4:encoder${i + 1}_state)`,
+                text: `ENC ${i + 1}\\n$(${self.label}:encoder${i}_state)`,
                 size: '14',
                 color: combineRgb(255, 255, 255),
                 bgcolor: combineRgb(0, 0, 0),
@@ -382,7 +382,7 @@ module.exports = function (self) {
         category: 'System',
         name: 'Connection Status',
         style: {
-            text: 'CONN\\n$(makitox4:connection_status)',
+            text: `CONN\\n$(${self.label}:connection_status)`,
             size: '14',
             color: combineRgb(255, 255, 255),
             bgcolor: combineRgb(50, 50, 50),
@@ -404,7 +404,7 @@ module.exports = function (self) {
         category: 'System',
         name: 'Device Info',
         style: {
-            text: '$(makitox4:device_name)\\n$(makitox4:device_model)',
+            text: `$(${self.label}:device_type)\\n$(${self.label}:device_serial)`,
             size: '7',
             color: combineRgb(255, 255, 255),
             bgcolor: combineRgb(0, 0, 0),
@@ -418,7 +418,7 @@ module.exports = function (self) {
         category: 'Status',
         name: 'Encoder Status',
         style: {
-            text: 'ENC: $(makitox4:encoder_state)\\n$(makitox4:encoder_resolution)@$(makitox4:encoder_framerate)fps',
+            text: `ENC: $(${self.label}:encoder0_state)\\n$(${self.label}:encoder0_resolution)@$(${self.label}:encoder0_framerate)fps`,
             size: '7',
             color: combineRgb(255, 255, 255),
             bgcolor: combineRgb(0, 0, 0),
@@ -451,7 +451,7 @@ module.exports = function (self) {
         category: 'Status',
         name: 'Bitrate Monitor',
         style: {
-            text: 'BITRATE\\n$(makitox4:encoder_bitrate) kbps',
+            text: `BITRATE\\n$(${self.label}:encoder0_encoded_bitrate)`,
             size: '14',
             color: combineRgb(255, 255, 255),
             bgcolor: combineRgb(0, 0, 0),

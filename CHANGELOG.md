@@ -10,6 +10,21 @@ at the top for each release; see `RELEASING.md` for the full release process.
 
 ### Added
 - `CLAUDE.md`, `ROADMAP.md`, `RELEASING.md`, and this changelog.
+- Real user documentation in `README.md` and `companion/HELP.md` (previously placeholders).
+
+### Fixed
+- Encoder status feedback now matches the device's numeric encoder states
+  (Working/Stopped/Failed) instead of comparing against strings that never matched.
+- Encoder Toggle now correctly detects whether an encoder is started before
+  deciding to start or stop it.
+- Encoder resolution, framerate, and codec match feedbacks now read the correct
+  fields from the device response (codec compares the numeric `codecAlgorithm`).
+- Built-in presets now reference real, existing variables using the connection's
+  own label, so button text resolves instead of showing empty `$(makitox4:…)` tokens.
+
+### Removed
+- `Set Stream Destination` action, which was a non-functional no-op. Use the
+  `Create Stream` / `Edit Stream` actions to configure stream destinations.
 
 ## [1.0.0]
 
