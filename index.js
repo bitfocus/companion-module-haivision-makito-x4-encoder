@@ -8,6 +8,37 @@ const http = require('http')
 const https = require('https')
 const Jimp = require('jimp')
 
+const JimpReader = Jimp.read ? Jimp : Jimp.Jimp
+const JimpPngMime = Jimp.MIME_PNG || Jimp.JimpMime?.png || 'image/png'
+
+async function readJimpImage(imageData) {
+    if (!JimpReader?.read) {
+        throw new Error('Unsupported Jimp version')
+    }
+
+    return JimpReader.read(imageData)
+}
+
+function scaleJimpImageToFit(image, width, height) {
+    if (!image?.scaleToFit) {
+        throw new Error('Jimp scaleToFit not available')
+    }
+
+    if (Jimp.JimpMime) {
+        return image.scaleToFit({ w: width, h: height })
+    }
+
+    return image.scaleToFit(width, height)
+}
+
+async function getJimpBuffer(image, mime) {
+    if (image.getBufferAsync) {
+        return image.getBufferAsync(mime)
+    }
+
+    return image.getBuffer(mime)
+}
+
 class MakitoX4EncoderInstance extends InstanceBase {
     constructor(internal) {
         super(internal)
@@ -834,8 +865,9 @@ class MakitoX4EncoderInstance extends InstanceBase {
                 const imageData = await this.makeRequestBinary(`/apis/preview/${index}`)
                 if (imageData) {
                     // Process the image with Jimp
-                    const image = await Jimp.read(imageData)
-                    const resized = await image.scaleToFit(72, 72).quality(70).getBufferAsync(Jimp.MIME_PNG)
+                    const image = await readJimpImage(imageData)
+                    const resizedImage = scaleJimpImageToFit(image, 72, 72)
+                    const resized = await getJimpBuffer(resizedImage, JimpPngMime)
 
                     // Store the resized thumbnail as base64
                     this.encoderThumbnails[index] = `data:image/png;base64,${resized.toString('base64')}`
