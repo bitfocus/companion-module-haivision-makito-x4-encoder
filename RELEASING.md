@@ -62,7 +62,7 @@ to Companion — submission is a manual step in the portal.
 
 1. Go to the **Developer Portal**: https://developer.bitfocus.io/ (log in with GitHub).
 2. **My Connections** in the sidebar → select this module
-   (`haivision-makitox4-encoder`).
+   (`haivision-makito-x4-encoder`).
 3. **Submit Version** at the bottom → choose the tag you just pushed.
 4. Tick **Is Prerelease** if it's a beta (goes to Companion beta builds, not stable).
 5. Submit. Once the module workflow passes, a prerelease lands in Companion beta
@@ -71,7 +71,7 @@ to Companion — submission is a manual step in the portal.
 
 ## First-time listing (one-time, already done for this module)
 
-This module is already registered with Bitfocus (id `haivision-makitox4-encoder`,
+This module is already registered with Bitfocus (id `haivision-makito-x4-encoder`,
 manufacturer `Haivision`). For reference, a brand-new module is claimed by posting
 in the Bitfocus Slack `#module-development` channel with your GitHub username and
 the desired name in `manufacturer-product` format before the first portal submission.

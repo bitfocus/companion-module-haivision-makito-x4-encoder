@@ -1280,9 +1280,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"haivision-maktiox4-encoder@workspace:.":
+"haivision-makito-x4-encoder@workspace:.":
   version: 0.0.0-use.local
-  resolution: "haivision-maktiox4-encoder@workspace:."
+  resolution: "haivision-makito-x4-encoder@workspace:."
   dependencies:
     "@companion-module/base": "npm:~1.14.1"
     "@companion-module/tools": "npm:^2.7.1"

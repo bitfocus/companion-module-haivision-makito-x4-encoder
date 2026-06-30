@@ -488,7 +488,7 @@ class MakitoX4EncoderInstance extends InstanceBase {
                             // Only fetch thumbnail if encoder is active
                             const stats = encoderData?.stats || encoderData
                             this.log('debug', `Encoder ${i} thumbnail check - Counter: ${this.presetListCounter}, State: ${stats?.state}`)
-                            if (stats && (stats.state === 'running' || stats.state === 'active' || stats.state === 1)) {
+                            if (stats && stats.state === 7) {
                                 this.log('info', `Encoder ${i} is active, fetching thumbnail`)
                                 this.getThumbnail('encoder', i)
                             } else {

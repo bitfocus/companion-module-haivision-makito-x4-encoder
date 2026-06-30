@@ -10,7 +10,7 @@ Companion loads this module as a child process and talks to it over IPC; the
 module in turn makes HTTPS/HTTP requests to the encoder and exposes **actions**,
 **feedbacks**, **variables**, and **presets** to the Companion UI.
 
-- Module SDK: `@companion-module/base` (~1.11.3)
+- Module SDK: `@companion-module/base` (~1.14.1)
 - Runtime: Node 22 (`node22`, see `companion/manifest.json`)
 - Package manager: **Yarn 4** (`yarn@4.9.1`, see `.yarnrc.yml` / `packageManager`)
 - This is **plain JavaScript (CommonJS)**, not TypeScript. No build step for the
@@ -26,7 +26,7 @@ src/variables.js      # setVariableDefinitions — all dynamic variables + initi
 src/presets.js        # setPresetDefinitions — ready-made buttons
 src/upgrades.js       # UpgradeScripts array (currently empty: module.exports = [])
 companion/manifest.json  # Module metadata (id, runtime, products) — required by Companion
-companion/HELP.md     # User-facing help (still placeholder)
+companion/HELP.md     # User-facing help
 .github/workflows/    # CI: bitfocus/actions module-checks
 ```
 
@@ -132,20 +132,15 @@ When `config.polling` is on, `startPolling()` runs `getDeviceStatus()` every
 
 ## Known rough edges (don't assume these are intentional)
 
-- Some feedbacks (`encoder_status`, `encoder_resolution_match`, etc.) compare
-  `status.state` against strings like `'running'`/`'stopped'`, but
-  `processEncoderStatus` shows the device returns **numeric** states. The
-  `encoder_toggle` action also checks `state === 1 / 'running' / 'active'`. These
-  string/number paths don't all line up — verify against a real device before
-  relying on them.
-- Several presets reference variables that aren't defined in `variables.js`
-  (e.g. `device_name`, `device_model`, `encoder_state`, `encoder_bitrate`,
-  `encoder_resolution`) and use the prefix `$(makitox4:...)`. The instance label
-  is user-chosen, so these may render blank.
-- `companion/HELP.md` and `README.md` are still placeholders.
+- There is no automated test suite yet. Use `node -c`/`yarn package` locally and
+  verify behavior against a real Makito X4 when changing API behavior.
+- Session expiry is not retried transparently. A `401` clears cookies and marks
+  the connection unauthenticated; reconnect robustness is tracked in `ROADMAP.md`.
+- The password config field is still a plain text input instead of Companion's
+  `secret` type.
 
 ## Git workflow
 
-- Active development branch for this work: `claude/claude-md-docs-j83ul9`.
+- Use feature branches off `main` for new work.
 - Commit with clear messages; push with `git push -u origin <branch>`.
 - Do **not** open a pull request unless explicitly asked.

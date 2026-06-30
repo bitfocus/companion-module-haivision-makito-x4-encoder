@@ -1,6 +1,6 @@
 # Roadmap
 
-Direction for the `haivision-makitox4-encoder` Companion module. This is a living
+Direction for the `haivision-makito-x4-encoder` Companion module. This is a living
 document — reprioritize freely. Items are grouped by milestone and mapped to the
 semver bump they imply (see `RELEASING.md`).
 

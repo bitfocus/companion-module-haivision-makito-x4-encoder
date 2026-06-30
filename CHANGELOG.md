@@ -12,6 +12,13 @@ at the top for each release; see `RELEASING.md` for the full release process.
 - `CLAUDE.md`, `ROADMAP.md`, `RELEASING.md`, and this changelog.
 - Real user documentation in `README.md` and `companion/HELP.md` (previously placeholders).
 
+### Changed
+- Module metadata and repository links now target
+  `bitfocus/companion-module-haivision-makito-x4-encoder`; the previous
+  `haivision-makitox4-encoder` module id is retained as a legacy id.
+- Jimp was updated to 1.6.0, moved to runtime dependencies, and thumbnail
+  processing now supports the current Jimp API.
+
 ### Fixed
 - Encoder status feedback now matches the device's numeric encoder states
   (Working/Stopped/Failed) instead of comparing against strings that never matched.
@@ -21,6 +28,8 @@ at the top for each release; see `RELEASING.md` for the full release process.
   fields from the device response (codec compares the numeric `codecAlgorithm`).
 - Built-in presets now reference real, existing variables using the connection's
   own label, so button text resolves instead of showing empty `$(makitox4:…)` tokens.
+- Automatic encoder thumbnail polling now recognizes the device's numeric
+  `Working` state (`7`) instead of old string/`1` checks.
 
 ### Removed
 - `Set Stream Destination` action, which was a non-functional no-op. Use the
