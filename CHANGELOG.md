@@ -9,10 +9,12 @@ at the top for each release; see `RELEASING.md` for the full release process.
 ## [Unreleased]
 
 ### Added
+
 - `CLAUDE.md`, `ROADMAP.md`, `RELEASING.md`, and this changelog.
 - Real user documentation in `README.md` and `companion/HELP.md` (previously placeholders).
 
 ### Changed
+
 - Module metadata and repository links now target
   `bitfocus/companion-module-haivision-makito-x4-encoder`; the previous
   `haivision-makitox4-encoder` module id is retained as a legacy id.
@@ -20,6 +22,7 @@ at the top for each release; see `RELEASING.md` for the full release process.
   processing now supports the current Jimp API.
 
 ### Fixed
+
 - Encoder status feedback now matches the device's numeric encoder states
   (Working/Stopped/Failed) instead of comparing against strings that never matched.
 - Encoder Toggle now correctly detects whether an encoder is started before
@@ -32,6 +35,7 @@ at the top for each release; see `RELEASING.md` for the full release process.
   `Working` state (`7`) instead of old string/`1` checks.
 
 ### Removed
+
 - `Set Stream Destination` action, which was a non-functional no-op. Use the
   `Create Stream` / `Edit Stream` actions to configure stream destinations.
 
@@ -40,6 +44,7 @@ at the top for each release; see `RELEASING.md` for the full release process.
 Initial release.
 
 ### Added
+
 - Connection to Haivision Makito X4 Encoder via REST API with cookie-based
   (`SessionID`) authentication and optional polling.
 - Encoder control actions: start, stop, toggle, restart for encoders 0–3.

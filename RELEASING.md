@@ -6,6 +6,7 @@ releases — we cut versions on our own schedule, and the Bitfocus build system
 picks them up.
 
 References (read these if anything below is unclear):
+
 - Releasing a module: https://companion.free/for-developers/module-development/module-lifecycle/releasing-your-module/
 - Versioning rules: https://companion.free/for-developers/git-workflows/versioning/
 - Developer Portal: https://developer.bitfocus.io/
@@ -21,6 +22,7 @@ Use semantic versioning `MAJOR.MINOR.PATCH` (e.g. `1.2.3`). Only plain
   config fields. A MAJOR bump usually needs an **upgrade script** (see below).
 
 The version lives in **two files that must stay in sync**:
+
 - `package.json` → `"version"`
 - `companion/manifest.json` → `"version"`
 

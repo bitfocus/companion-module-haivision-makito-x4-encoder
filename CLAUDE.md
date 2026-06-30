@@ -56,12 +56,14 @@ semicolon-free style; match the surrounding file's existing style when editing.
 ## How the module works
 
 ### Lifecycle (`index.js`)
+
 - `init(config)` → sets status `Connecting`, registers actions/feedbacks/variables/presets, then `initConnection()`.
 - `configUpdated(config)` → re-runs `initConnection()`.
 - `destroy()` → clears the poll timer.
 - `getConfigFields()` → host, port (default `443`), username (`admin`), password, polling toggle, poll interval.
 
 ### Transport
+
 - `makeRequest(endpoint, method, body, skipAuth)` — JSON requests. Auto-prefixes
   `/apis` if missing, uses `https` when `port === '443'` (else `http`), sets
   `rejectUnauthorized: false` for self-signed certs, 5s timeout.
@@ -71,8 +73,10 @@ semicolon-free style; match the surrounding file's existing style when editing.
   stored cookies. A `401` clears cookies and flips `authenticated = false`.
 
 ### Polling
+
 When `config.polling` is on, `startPolling()` runs `getDeviceStatus()` every
 `pollInterval` seconds. `getDeviceStatus()`:
+
 - Reads `/apis/status` for system vars.
 - Loops encoders `0..3` via `/apis/videnc/{i}`, calls `processEncoderStatus()`.
 - Uses `presetListCounter` to throttle: preset list every 5th poll, stream list
@@ -80,6 +84,7 @@ When `config.polling` is on, `startPolling()` runs `getDeviceStatus()` every
 - Calls `checkFeedbacks()` at the end.
 
 ### Key state on `self`
+
 - `encodersStatus[0..3]` — last raw encoder responses (used by feedbacks).
 - `encoderChoices` — dropdown choices, rebuilt in `buildDeviceChoices()`; names
   update live when an encoder is renamed on the device.
