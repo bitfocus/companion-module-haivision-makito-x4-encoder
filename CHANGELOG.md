@@ -8,10 +8,28 @@ at the top for each release; see `RELEASING.md` for the full release process.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-06-30
+
+Initial release.
+
 ### Added
 
 - `CLAUDE.md`, `ROADMAP.md`, `RELEASING.md`, and this changelog.
 - Real user documentation in `README.md` and `companion/HELP.md` (previously placeholders).
+- Connection to Haivision Makito X4 Encoder via REST API with cookie-based
+  (`SessionID`) authentication and optional polling.
+- Encoder control actions: start, stop, toggle, restart for encoders 0–3.
+- Encoder configuration actions: set bitrate, resolution, framerate/GOP, codec.
+- Stream management: create, edit, delete, start, stop, toggle, restart
+  (UDP / RTP / SRT / RTSP).
+- System preset actions: save, load, delete, rename, duplicate, set startup,
+  set autosave.
+- Preview service enable/disable and per-encoder thumbnails (rendered via Jimp).
+- Reboot device and a generic custom API call action.
+- Variables for device info, per-encoder status (0–3), and up to 10 streams.
+- Feedbacks for encoder status, bitrate comparison, resolution/framerate/codec
+  match, connection status, and encoder thumbnail.
+- Ready-made presets for encoder control, settings, thumbnails, and status.
 
 ### Changed
 
@@ -20,6 +38,8 @@ at the top for each release; see `RELEASING.md` for the full release process.
   `haivision-makitox4-encoder` module id is retained as a legacy id.
 - Jimp was updated to 1.6.0, moved to runtime dependencies, and thumbnail
   processing now supports the current Jimp API.
+- Dependency alerts were resolved by updating compatible tooling dependencies
+  and refreshing the webpack lockfile resolution.
 
 ### Fixed
 
@@ -38,24 +58,3 @@ at the top for each release; see `RELEASING.md` for the full release process.
 
 - `Set Stream Destination` action, which was a non-functional no-op. Use the
   `Create Stream` / `Edit Stream` actions to configure stream destinations.
-
-## [1.0.0]
-
-Initial release.
-
-### Added
-
-- Connection to Haivision Makito X4 Encoder via REST API with cookie-based
-  (`SessionID`) authentication and optional polling.
-- Encoder control actions: start, stop, toggle, restart for encoders 0–3.
-- Encoder configuration actions: set bitrate, resolution, framerate/GOP, codec.
-- Stream management: create, edit, delete, start, stop, toggle, restart
-  (UDP / RTP / SRT / RTSP).
-- System preset actions: save, load, delete, rename, duplicate, set startup,
-  set autosave.
-- Preview service enable/disable and per-encoder thumbnails (rendered via Jimp).
-- Reboot device and a generic custom API call action.
-- Variables for device info, per-encoder status (0–3), and up to 10 streams.
-- Feedbacks for encoder status, bitrate comparison, resolution/framerate/codec
-  match, connection status, and encoder thumbnail.
-- Ready-made presets for encoder control, settings, thumbnails, and status.
