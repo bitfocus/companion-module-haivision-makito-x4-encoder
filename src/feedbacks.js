@@ -46,11 +46,21 @@ module.exports = async function (self) {
             ],
             callback: (feedback) => {
                 const deviceNum = feedback.options.deviceNumber
-                if (self.encodersStatus && self.encodersStatus[deviceNum]) {
-                    const status = self.encodersStatus[deviceNum].stats || self.encodersStatus[deviceNum]
-                    return status.state === feedback.options.status
+                const enc = self.encodersStatus && self.encodersStatus[deviceNum]
+                if (!enc) return false
+                const stats = enc.stats || enc
+                // Device reports numeric states: 0=Stopped, 3=Awaiting Frame,
+                // 5=Not Encoding, 7=Working, 8=Resetting, 128=Failed
+                switch (feedback.options.status) {
+                    case 'running':
+                        return stats.state === 7
+                    case 'stopped':
+                        return stats.state === 0
+                    case 'error':
+                        return stats.state === 128
+                    default:
+                        return false
                 }
-                return false
             },
         },
         encoder_bitrate_compare: {
@@ -143,12 +153,10 @@ module.exports = async function (self) {
             ],
             callback: (feedback) => {
                 const deviceNum = feedback.options.deviceNumber
-                if (self.encodersStatus && self.encodersStatus[deviceNum]) {
-                    const stats = self.encodersStatus[deviceNum].stats || self.encodersStatus[deviceNum]
-                    const video = stats.video || stats
-                    return video.resolution === feedback.options.resolution
-                }
-                return false
+                const enc = self.encodersStatus && self.encodersStatus[deviceNum]
+                if (!enc) return false
+                const info = enc.info || enc
+                return info.resolution === feedback.options.resolution
             },
         },
         encoder_framerate_match: {
@@ -177,12 +185,10 @@ module.exports = async function (self) {
             ],
             callback: (feedback) => {
                 const deviceNum = feedback.options.deviceNumber
-                if (self.encodersStatus && self.encodersStatus[deviceNum]) {
-                    const stats = self.encodersStatus[deviceNum].stats || self.encodersStatus[deviceNum]
-                    const video = stats.video || stats
-                    return video.framerate == feedback.options.framerate
-                }
-                return false
+                const enc = self.encodersStatus && self.encodersStatus[deviceNum]
+                if (!enc) return false
+                const stats = enc.stats || enc
+                return String(stats.framerate) === String(feedback.options.framerate)
             },
         },
         encoder_codec_match: {
@@ -208,12 +214,12 @@ module.exports = async function (self) {
             ],
             callback: (feedback) => {
                 const deviceNum = feedback.options.deviceNumber
-                if (self.encodersStatus && self.encodersStatus[deviceNum]) {
-                    const stats = self.encodersStatus[deviceNum].stats || self.encodersStatus[deviceNum]
-                    const video = stats.video || stats
-                    return video.codec === feedback.options.codec
-                }
-                return false
+                const enc = self.encodersStatus && self.encodersStatus[deviceNum]
+                if (!enc) return false
+                const info = enc.info || enc
+                // Codec: 0=H.264, 1=H.265
+                const wanted = feedback.options.codec === 'h265' ? 1 : 0
+                return info.codecAlgorithm === wanted
             },
         },
         encoder_thumbnail: {
