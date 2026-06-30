@@ -39,11 +39,13 @@ module.exports = function (self) {
             options: [deviceNumberOption],
             callback: async (action) => {
                 const deviceNum = action.options.deviceNumber
-                // Check current encoder state
-                if (self.encodersStatus && self.encodersStatus[deviceNum]) {
-                    const status = self.encodersStatus[deviceNum].stats || self.encodersStatus[deviceNum]
-                    // If encoder is running/active, stop it. Otherwise start it.
-                    if (status.state === 'running' || status.state === 'active' || status.state === 1) {
+                // Check current encoder state. Device states:
+                // 0=Stopped, 3=Awaiting Frame, 5=Not Encoding, 7=Working, 8=Resetting, 128=Failed
+                const enc = self.encodersStatus && self.encodersStatus[deviceNum]
+                if (enc) {
+                    const stats = enc.stats || enc
+                    // Treat anything other than Stopped (0) or Failed (128) as started, so stop it.
+                    if (stats.state !== 0 && stats.state !== 128) {
                         await self.stopEncoder(deviceNum)
                     } else {
                         await self.startEncoder(deviceNum)
@@ -183,36 +185,6 @@ module.exports = function (self) {
                     setTimeout(() => self.getDeviceStatus(), 1000)
                 } catch (error) {
                     self.log('error', `Failed to set encoder codec: ${error.message}`)
-                }
-            },
-        },
-        set_stream_destination: {
-            name: 'Set Stream Destination',
-            options: [
-                deviceNumberOption,
-                {
-                    type: 'textinput',
-                    label: 'Destination IP',
-                    id: 'ip',
-                    default: '239.0.0.1',
-                    regex: '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
-                },
-                {
-                    type: 'number',
-                    label: 'Port',
-                    id: 'port',
-                    default: 5004,
-                    min: 1,
-                    max: 65535,
-                },
-            ],
-            callback: async (action) => {
-                try {
-                    // This would typically create/update a stream, not modify encoder directly
-                    self.log('warn', 'Stream destination should be set when creating/editing streams, not on encoder directly')
-                    // You would use POST /apis/streams to create a new stream with these settings
-                } catch (error) {
-                    self.log('error', `Failed to set stream destination: ${error.message}`)
                 }
             },
         },

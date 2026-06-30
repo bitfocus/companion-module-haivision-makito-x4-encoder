@@ -119,6 +119,17 @@ When `config.polling` is on, `startPolling()` runs `getDeviceStatus()` every
   `src/upgrades.js` so existing user configs migrate.
 - Bump `version` in **both** `package.json` and `companion/manifest.json` together.
 
+## Releasing & roadmap
+
+- **`RELEASING.md`** is the source of truth for cutting a release: semver bump in
+  both `package.json` and `companion/manifest.json`, `CHANGELOG.md` entry, git tag
+  `vX.Y.Z`, then submit via the Bitfocus Developer Portal. Follow it; don't invent
+  an ad-hoc process.
+- **`CHANGELOG.md`** — add entries under `[Unreleased]` as you make user-facing changes.
+- **`ROADMAP.md`** — planned work and known bugs, grouped by milestone. Check it
+  before starting a feature so effort lines up with priorities; tick items off in
+  the PR that completes them.
+
 ## Known rough edges (don't assume these are intentional)
 
 - Some feedbacks (`encoder_status`, `encoder_resolution_match`, etc.) compare
