@@ -19,8 +19,21 @@
 		"apiVersion": "0.0.0",
 		"entrypoint": "../index.js"
 	},
-	"legacyIds": ["haivision-makitox4-encoder"],
+	"legacyIds": [],
 	"manufacturer": "Haivision",
 	"products": ["Makito X4 Encoder"],
-	"keywords": []
+	"keywords": [
+		"Haivision",
+		"Makito",
+		"Makito X4",
+		"encoder",
+		"video",
+		"streaming",
+		"H.264",
+		"H.265",
+		"SRT",
+		"RTSP",
+		"RTP",
+		"UDP"
+	]
 }
